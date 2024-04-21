@@ -48,7 +48,9 @@ I am planning on adding the following features to the train map editor:
   - [ ] Map styling
 - [ ] Bug hunting
 
-- [ ] Redirect Help (F1) to actual GitHub repo
+- [x] Redirect Help (F1) to actual GitHub repo
+
+- [ ] Add light/Darl mode for the app `var.setProprety("class", " ")`
 
 # Licence
 > For the full version, visit the [LICENCE](LICENSE) file

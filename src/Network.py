@@ -161,18 +161,22 @@ class Network:
 
 
 
-# Tests
-network_map = Network()
-# set the network map
-network_map.add_nodes(['NFRC', 'SEP', 'MP', 'NH', 'RH', 'RC', 'RF', 'FC', 'S', 'SC']) # The test network map (NFR 1.0 Map)
-# link the nodes together
-network_map.link_nodes([('NFRC', 'SEP'), ('NFRC', 'MP'), ('MP', 'NH'), ('NH', 'RH'), ('RH', 'RC'), ('RC', 'RF'), ('RC', 'S'), ('S', 'SC'), ('RF', 'FC')]) # The network linking for the NFR 1.0 Map
-# add the different lines and their ID
-network_map.colours.append((0, 'Foxrail Line'))
-network_map.colours.append((1,'Foxrail Line (limited Services)'))
 
-print(network_map.Get_json_dict())
+def test() :
+    # Tests
+    network_map = Network()
+    # set the network map
+    network_map.add_nodes(['NFRC', 'SEP', 'MP', 'NH', 'RH', 'RC', 'RF', 'FC', 'S', 'SC']) # The test network map (NFR 1.0 Map)
+    # link the nodes together
+    network_map.link_nodes([('NFRC', 'SEP'), ('NFRC', 'MP'), ('MP', 'NH'), ('NH', 'RH'), ('RH', 'RC'), ('RC', 'RF'), ('RC', 'S'), ('S', 'SC'), ('RF', 'FC')]) # The network linking for the NFR 1.0 Map
+    # add the different lines and their ID
+    network_map.colours.append((0, 'Foxrail Line'))
+    network_map.colours.append((1,'Foxrail Line (limited Services)'))
 
-# display the map nodes
-print(network_map)
+    print(network_map.Get_json_dict())
 
+    # display the map nodes
+    print(network_map)
+
+if __name__ == '__main__' :
+    test()
