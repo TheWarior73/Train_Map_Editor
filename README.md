@@ -3,11 +3,11 @@ A custom map editor for train networks !
 
 # Table of content :
 
-- How to use
-- Purpose
-- Planned Features
-- Todo
-- Software Licence
+- [How to use](#how-to-use)
+- [Purpose](#purpose)
+- [Planned Features](#planned-features)
+- [Todo](#todo)
+- [Software Licence](#licence)
 
 
 # How to use

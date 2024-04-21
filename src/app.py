@@ -74,9 +74,9 @@ class MainWindow(QMainWindow):
         file_menu.addSeparator()
         file_menu.addAction(settings_button)
 
-        edit_menu = menu.addMenu("&Edit")
+        edit_menu = menu.addMenu("&Edit") # Not yet implemented #TODO
 
-        view_menu = menu.addMenu("&View")
+        view_menu = menu.addMenu("&View") # Not yet implemented #TODO
 
         help_menu = menu.addMenu("&Help")
         help_menu.addAction(help_button)
@@ -95,10 +95,10 @@ class MainWindow(QMainWindow):
 
     def saveProject(self):
         sv = SaveProject(parent=self, data=self.data)
-        sv_data = sv.savepr()
+        sv.savepr()
 
     def openSettings(self):
-        ## Not yet implemented.
+        ## Not yet implemented. #TODO
         print('tring to open settings')
 
 
