@@ -1,4 +1,7 @@
 """
+This file creates a Node Object used by the Network, actions performed on the node are the following:
+- set pos (x,y)
+- set type
 
 ---
 

@@ -1,4 +1,5 @@
 """
+Network object that represents a metro/train map
 
 ---
 
@@ -11,7 +12,7 @@ copies or substantial portions of the Software. Please refer to the LICENCE file
 """
 
 ## Imports
-from Node import Node
+from .Node import Node
 
 ##
 
@@ -156,22 +157,30 @@ class Network:
         """Returns a dict representing the Network, allowing it to be parsed by json"""
         res = {"nodes": {}}
         for node in self.network_node_list :
-            res["nodes"][node.name] = [{"posX": None, "posY": None, "color": [color for color in node.colors]}]
+            res["nodes"][node.name] = [{"posX": None, "posY": None, "color": [color for color in node.colors], "connected": [node_name for node_name in node.connected_nodes]}]
         return res
 
 
+def networkConstructor(network_dict: dict=None) :
+    """Constructs the network based on a dictionary (json format)
+    Usefull upon oppening a project"""
+    if network_dict is None : # in case of a null paramn, return an empty Network
+        return Network()
+    net_res = Network()
 
+
+    for node in network_dict["nodes"] :
+        net_res.add_node(node)
+        for elt in network_dict["nodes"][node] :
+            cur_node = net_res.network_node_list[net_res.Get_node_index(node)]
+            cur_node.set_pos(elt["posX"], elt["posY"])
+            cur_node.connected_nodes = elt["connected"]
+
+    return net_res
 
 def test() :
-    # Tests
-    network_map = Network()
-    # set the network map
-    network_map.add_nodes(['NFRC', 'SEP', 'MP', 'NH', 'RH', 'RC', 'RF', 'FC', 'S', 'SC']) # The test network map (NFR 1.0 Map)
-    # link the nodes together
-    network_map.link_nodes([('NFRC', 'SEP'), ('NFRC', 'MP'), ('MP', 'NH'), ('NH', 'RH'), ('RH', 'RC'), ('RC', 'RF'), ('RC', 'S'), ('S', 'SC'), ('RF', 'FC')]) # The network linking for the NFR 1.0 Map
-    # add the different lines and their ID
-    network_map.colours.append((0, 'Foxrail Line'))
-    network_map.colours.append((1,'Foxrail Line (limited Services)'))
+    data = {'nodes': {'NFRC': [{'posX': None, 'posY': None, 'color': [], 'connected': ['SEP', 'MP']}], 'SEP': [{'posX': None, 'posY': None, 'color': [], 'connected': ['NFRC']}], 'MP': [{'posX': None, 'posY': None, 'color': [], 'connected': ['NFRC', 'NH']}], 'NH': [{'posX': None, 'posY': None, 'color': [], 'connected': ['MP', 'RH']}], 'RH': [{'posX': None, 'posY': None, 'color': [], 'connected': ['NH', 'RC']}], 'RC': [{'posX': None, 'posY': None, 'color': [], 'connected': ['RH', 'RF', 'S']}], 'RF': [{'posX': None, 'posY': None, 'color': [], 'connected': ['RC', 'FC']}], 'FC': [{'posX': None, 'posY': None, 'color': [], 'connected': ['RF']}], 'S': [{'posX': None, 'posY': None, 'color': [], 'connected': ['RC', 'SC']}], 'SC': [{'posX': None, 'posY': None, 'color': [], 'connected': ['S']}]}}
+    network_map = networkConstructor(data)
 
     print(network_map.Get_json_dict())
 

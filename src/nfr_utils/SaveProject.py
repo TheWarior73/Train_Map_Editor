@@ -28,3 +28,4 @@ class SaveProject(QFileDialog):
         if file_name[0] :
             with open(file_name[0], 'w') as json_file_handler:
                 json_file_handler.write(json.dumps(self.data_list, indent=2))
+                print(f"Project saved in: {file_name[0]}")

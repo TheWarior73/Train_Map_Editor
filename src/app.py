@@ -1,4 +1,5 @@
 """
+This file runs the software using a UI
 
 ---
 
@@ -18,18 +19,18 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtGui import QAction, QKeySequence
 # Custom imports
 from src.nfr_utils import *
-from Network import Network
-from Node import Node
 
 ## IMPORTS ##
 
 class MainWindow(QMainWindow):
 
-    def __init__(self, data):
+    def __init__(self):
         super(MainWindow, self).__init__()
 
+        self.project_network = None
         self.initUI()
-        self.data = data
+
+        self.save_project_button = None
 
 
     def initUI(self):
@@ -44,12 +45,14 @@ class MainWindow(QMainWindow):
 
         # FILE MENU BAR
         new_project_button = self.createMenuButton("New Project", "Create a blanck Project", "Ctrl+Alt+N", self.newProject)
+        new_project_button.setDisabled(True) # Unavailable for now
 
         open_project_button = self.createMenuButton('Open Project', "Select a project to open", "Ctrl+o", self.openProject)
 
-        save_project_button = self.createMenuButton("Save Project", "Save your project and go touch some grass", 'Ctrl+S', self.saveProject)
+        self.save_project_button = self.createMenuButton("Save Project", "Save your project and go touch some grass", 'Ctrl+S', self.saveProject)
 
         settings_button = self.createMenuButton('Settings', "Acces the software settings to customize it.", 'Ctrl+,', self.openSettings)
+        settings_button.setDisabled(True)
 
         # EDIT MENU BAR
 
@@ -62,19 +65,26 @@ class MainWindow(QMainWindow):
         menu = self.menuBar()
 
         file_menu = menu.addMenu("&File")
-        file_menu.addActions([new_project_button, open_project_button, save_project_button])
+        file_menu.addActions([new_project_button, open_project_button, self.save_project_button])
         file_menu.addSeparator()
         file_menu.addAction(settings_button)
 
+        ## only here because some features are missing, will disapear of be modified in the future
+        todo_button = self.createMenuButton("Comming soon", "feature is comming soon !", conn_func=help_redirect) #conn_func is needed, but won't be used since the button is disabled
+        todo_button.setDisabled(True)
+
         edit_menu = menu.addMenu("&Edit") # Not yet implemented #TODO
+        edit_menu.addAction(todo_button)
 
         view_menu = menu.addMenu("&View") # Not yet implemented #TODO
+        view_menu.addAction(todo_button)
 
         help_menu = menu.addMenu("&Help")
         help_menu.addAction(help_button)
 
     def newProject(self):
         np_alert = CustomDialog(self, 'Create New Project ?', 'Creating a new project will erase data from current project if not saved.\nDo you wish to continue ?')
+
         if np_alert.exec() :
             print('Creating new project')
         else: print('Project Creation Canceled')
@@ -84,6 +94,10 @@ class MainWindow(QMainWindow):
         project_data = opn.openpr()
         if project_data is not None :
             print('Project Opened with data :', project_data)
+            # project_network is the network representation for the project, this is the var that will be modified by all the actions performed on the network.
+            self.project_network = networkConstructor(project_data)
+
+            ## Console logging purposes
             print(f'Number of nodes on the network: {len(project_data["nodes"])}\n'
                   f'NodeList: ')
             nl = []
@@ -92,9 +106,12 @@ class MainWindow(QMainWindow):
             print(nl)
 
     def saveProject(self):
-        sv = SaveProject(parent=self, data=self.data)
-        sv.savepr()
-
+        try :
+            sv = SaveProject(parent=self, data=self.project_network.Get_json_dict())
+            sv.savepr()
+        except :
+            save_error = CustomDialog(self, "No Oppened Project", 'Try oppening or creating a project before saving')
+            save_error.show()
     def openSettings(self):
         ## Not yet implemented. #TODO
         print('tring to open settings')
@@ -115,16 +132,12 @@ def help_redirect():
     print('Redirected towards github repo')
 
 def main():
-
-    # Test data for saving purposes until I link the Network.py file with the app.py file.
-    data = {'nodes': {'NFRC': [{'posX': None, 'posY': None, 'color': []}], 'SEP': [{'posX': None, 'posY': None, 'color': []}], 'MP': [{'posX': None, 'posY': None, 'color': []}], 'NH': [{'posX': None, 'posY': None, 'color': []}], 'RH': [{'posX': None, 'posY': None, 'color': []}], 'RC': [{'posX': None, 'posY': None, 'color': []}], 'RF': [{'posX': None, 'posY': None, 'color': []}], 'FC': [{'posX': None, 'posY': None, 'color': []}], 'S': [{'posX': None, 'posY': None, 'color': []}], 'SC': [{'posX': None, 'posY': None, 'color': []}]}}
-
     app = QApplication(sys.argv)
 
     with open("styles.css", 'r') as file :
         app.setStyleSheet(file.read())
 
-    ex = MainWindow(data=data)
+    ex = MainWindow()
     ex.show()
     sys.exit(app.exec())
 

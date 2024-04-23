@@ -15,6 +15,15 @@ A custom map editor for train networks !
 Run the app.py script\
 (should have all the other scripts in the directory too for now)
 
+> [!IMPORTANT]
+> This software uses PyQt6, a python library.\
+> In this software, PyQt6 is in `Version: 6.6.1`\
+> The python Interpreter is in `-v 3.9.12`, if you are using another version the software may not work as intended.\
+
+> [!WARNING] 
+> Authors of the software canot be blamed if the software is not running as expected. Especially if the above versions are not met
+
+
 # Purpose
 I am developing and supporting this editor to enable myself and other users to create and edit train network maps.
 
