@@ -14,11 +14,14 @@ copies or substantial portions of the Software. Please refer to the LICENCE file
 import sys
 # PYQT6
 from PyQt6.QtWidgets import (
-    QMainWindow, QApplication, QDialog
+    QMainWindow, QApplication, QDialog,
+    QGridLayout, QHBoxLayout, QVBoxLayout,
+    QLabel, QWidget,
 )
 from PyQt6.QtGui import QAction, QKeySequence
+from PyQt6.QtCore import Qt
 # Custom imports
-from src.nfr_utils import *
+from nfr_utils import *
 
 ## IMPORTS ##
 
@@ -26,12 +29,14 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super(MainWindow, self).__init__()
-
-        self.project_network = None
-        self.initUI()
+        self.project_network = None  # Project
+        self.display_layout = None  # Project visualization Layout
 
         self.save_project_button = None
 
+
+
+        self.initUI() # last to initialize everything (or will be overwritten by the None objects)
 
     def initUI(self):
         # general window parameters
@@ -82,6 +87,25 @@ class MainWindow(QMainWindow):
         help_menu = menu.addMenu("&Help")
         help_menu.addAction(help_button)
 
+        ## Layouts
+        main_win = QWidget()
+
+        # Main Horizontal layout --> IS supposed to look like this : | 1.editing tools | 2.display |
+        main_layout = QHBoxLayout(main_win)
+
+        editing_tools_layout = QVBoxLayout()
+        editing_tools_layout.addWidget(QLabel("Test"))
+
+
+        self.display_layout = QGridLayout()
+
+
+
+
+        main_layout.addLayout(editing_tools_layout)
+        main_layout.addLayout(self.display_layout)
+        main_win.show()
+
     def newProject(self):
         np_alert = CustomDialog(self, 'Create New Project ?', 'Creating a new project will erase data from current project if not saved.\nDo you wish to continue ?')
 
@@ -96,6 +120,18 @@ class MainWindow(QMainWindow):
             print('Project Opened with data :', project_data)
             # project_network is the network representation for the project, this is the var that will be modified by all the actions performed on the network.
             self.project_network = networkConstructor(project_data)
+
+            lay = QGridLayout()
+            for node in self.project_network.network_node_list :
+                if node.pos[0] is not None :
+                    temp = QLabel(node.name)
+                    temp.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                    temp.setProperty('class', "node")
+
+                    lay.addWidget(temp, node.pos[0], node.pos[1])
+            lay.setProperty("class", 'node_layout')
+
+            self.display_layout = lay
 
             ## Console logging purposes
             print(f'Number of nodes on the network: {len(project_data["nodes"])}\n'

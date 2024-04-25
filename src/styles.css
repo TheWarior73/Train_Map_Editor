@@ -46,3 +46,14 @@ QMenu::item:disabled {
     background: #182135;
     color: #2e3a51;
 }
+
+.node {
+    background: #182135;
+    border-radius: 5px;
+    text-align: center !important;
+    color: white;
+}
+
+.node_layout {
+    text-align: center;
+}
