@@ -33,8 +33,7 @@ class MainWindow(QMainWindow):
         self.display_layout = None  # Project visualization Layout
 
         self.save_project_button = None
-
-
+        self.me_map = QGridLayout() #map layout
 
         self.initUI() # last to initialize everything (or will be overwritten by the None objects)
 
@@ -88,23 +87,38 @@ class MainWindow(QMainWindow):
         help_menu.addAction(help_button)
 
         ## Layouts
-        main_win = QWidget()
+        main_win = QWidget() # Main window layout
 
         # Main Horizontal layout --> IS supposed to look like this : | 1.editing tools | 2.display |
         main_layout = QHBoxLayout(main_win)
 
         editing_tools_layout = QVBoxLayout()
-        editing_tools_layout.addWidget(QLabel("Test"))
+        t = QLabel("Toolbox")
+        t.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
+        t.setProperty('class', "layout_back_transparent")
+        t.setMaximumSize(250, int(1920/1.7))
+        editing_tools_layout.addWidget(t)
 
 
-        self.display_layout = QGridLayout()
 
 
+        dis_l = QLabel('Display')
+        dis_l.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        dis_l.setMaximumHeight(20)
+        dis_l.setProperty('class', 'layout_back_transparent')
+
+        self.display_layout = QVBoxLayout()
+        self.display_layout.addWidget(dis_l)
+
+        map_widget = QWidget()
+        map_widget.setLayout(self.me_map)
+        self.display_layout.addWidget(map_widget)
 
 
         main_layout.addLayout(editing_tools_layout)
         main_layout.addLayout(self.display_layout)
-        main_win.show()
+        main_win.setLayout(main_layout)
+        self.setCentralWidget(main_win)
 
     def newProject(self):
         np_alert = CustomDialog(self, 'Create New Project ?', 'Creating a new project will erase data from current project if not saved.\nDo you wish to continue ?')
@@ -121,17 +135,17 @@ class MainWindow(QMainWindow):
             # project_network is the network representation for the project, this is the var that will be modified by all the actions performed on the network.
             self.project_network = networkConstructor(project_data)
 
-            lay = QGridLayout()
+            #set the layout
             for node in self.project_network.network_node_list :
                 if node.pos[0] is not None :
                     temp = QLabel(node.name)
                     temp.setAlignment(Qt.AlignmentFlag.AlignCenter)
                     temp.setProperty('class', "node")
 
-                    lay.addWidget(temp, node.pos[0], node.pos[1])
-            lay.setProperty("class", 'node_layout')
+                    self.me_map.addWidget(temp, node.pos[0], node.pos[1])
+            self.me_map.setProperty("class", 'node_layout')
 
-            self.display_layout = lay
+
 
             ## Console logging purposes
             print(f'Number of nodes on the network: {len(project_data["nodes"])}\n'

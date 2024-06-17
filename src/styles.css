@@ -55,5 +55,12 @@ QMenu::item:disabled {
 }
 
 .node_layout {
-    text-align: center;
+    text-align: center !important;
+}
+
+.layout_back_transparent {
+    background: rgba(20, 53, 134, 0.7);
+    border-radius: 5px;
+    text-align: center !important;
+    color: white;
 }
