@@ -23,7 +23,7 @@ class SaveProject(QFileDialog):
 
     def savepr(self):
         directory = str(Path.home())
-        file_name = QFileDialog.getSaveFileName(self, 'Open Project', directory, filter='*.json')
+        file_name = QFileDialog.getSaveFileName(self, 'Save Project', directory, filter='*.json')
 
         if file_name[0] :
             with open(file_name[0], 'w') as json_file_handler:

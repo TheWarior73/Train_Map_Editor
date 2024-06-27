@@ -130,6 +130,19 @@ class MainWindow(QMainWindow):
     def openProject(self):
         opn = OpenProject(self)
         project_data = opn.openpr()
+
+        if self.me_map.isEmpty() is False: # Save the project before opening a new one
+            open_pr_alert = CustomDialog(parent=self ,window_title="You have an open Project", message="Would you like to save ?")
+
+            if open_pr_alert.exec() :
+                print("Saving Project")
+                self.saveProject()
+            else: print("Will not be saved.")
+
+            # reset the map
+            for i in reversed(range(self.me_map.count())):
+                self.me_map.itemAt(i).widget().setParent(None)
+
         if project_data is not None :
             print('Project Opened with data :', project_data)
             # project_network is the network representation for the project, this is the var that will be modified by all the actions performed on the network.

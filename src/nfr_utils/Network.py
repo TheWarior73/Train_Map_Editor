@@ -157,7 +157,7 @@ class Network:
         """Returns a dict representing the Network, allowing it to be parsed by json"""
         res = {"nodes": {}}
         for node in self.network_node_list :
-            res["nodes"][node.name] = [{"posX": None, "posY": None, "color": [color for color in node.colors], "connected": [node_name for node_name in node.connected_nodes]}]
+            res["nodes"][node.name] = [{"posX": node.pos[0], "posY": node.pos[1], "color": [color for color in node.colors], "connected": [node_name for node_name in node.connected_nodes]}]
         return res
 
 
@@ -178,14 +178,3 @@ def networkConstructor(network_dict: dict=None) :
 
     return net_res
 
-def test() :
-    data = {'nodes': {'NFRC': [{'posX': None, 'posY': None, 'color': [], 'connected': ['SEP', 'MP']}], 'SEP': [{'posX': None, 'posY': None, 'color': [], 'connected': ['NFRC']}], 'MP': [{'posX': None, 'posY': None, 'color': [], 'connected': ['NFRC', 'NH']}], 'NH': [{'posX': None, 'posY': None, 'color': [], 'connected': ['MP', 'RH']}], 'RH': [{'posX': None, 'posY': None, 'color': [], 'connected': ['NH', 'RC']}], 'RC': [{'posX': None, 'posY': None, 'color': [], 'connected': ['RH', 'RF', 'S']}], 'RF': [{'posX': None, 'posY': None, 'color': [], 'connected': ['RC', 'FC']}], 'FC': [{'posX': None, 'posY': None, 'color': [], 'connected': ['RF']}], 'S': [{'posX': None, 'posY': None, 'color': [], 'connected': ['RC', 'SC']}], 'SC': [{'posX': None, 'posY': None, 'color': [], 'connected': ['S']}]}}
-    network_map = networkConstructor(data)
-
-    print(network_map.Get_json_dict())
-
-    # display the map nodes
-    print(network_map)
-
-if __name__ == '__main__' :
-    test()
