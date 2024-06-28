@@ -64,6 +64,7 @@ class MainWindow(QMainWindow):
 
         # HELP MENU BAR
         help_button = self.createMenuButton('Get Help', "Go check the online tutorials on how to use the Map Editor !", 'F1', help_redirect)
+        report_issue_button = self.createMenuButton('Issue Tracker', 'Report bugs and check existing ones on the GitHub',conn_func=issue_redirect)
 
         ## Top menu bar
         menu = self.menuBar()
@@ -85,6 +86,7 @@ class MainWindow(QMainWindow):
 
         help_menu = menu.addMenu("&Help")
         help_menu.addAction(help_button)
+        help_menu.addAction(report_issue_button)
 
         ## Layouts
         main_win = QWidget() # Main window layout
@@ -189,10 +191,15 @@ class MainWindow(QMainWindow):
             button.setShortcut(QKeySequence(shortcut))
         return button
 
+import webbrowser
+
 def help_redirect():
-    import webbrowser
     webbrowser.open('https://github.com/TheWarior73/Train_Map_Editor')
     print('Redirected towards github repo')
+
+def issue_redirect():
+    webbrowser.open('https://github.com/TheWarior73/Train_Map_Editor/issues')
+    print('Redirected towards the issue tracker on the official repo')
 
 def main():
     app = QApplication(sys.argv)

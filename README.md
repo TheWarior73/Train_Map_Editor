@@ -7,6 +7,7 @@ A custom map editor for train networks !
 - [Purpose](#purpose)
 - [Planned Features](#planned-features)
 - [Todo](#todo)
+- [Contributing](#contributing)
 - [Software Licence](#licence)
 
 
@@ -18,6 +19,7 @@ Run the app.py script\
 > [!IMPORTANT]
 > This software uses PyQt6, a python library.\
 > In this software, PyQt6 is in `Version: 6.6.1`\
+> To install PyQt6 in specified version, run `pip install PyQt6==6.6.1` in your interpreter.\
 > The python Interpreter is in `-v 3.9.12`, if you are using another version the software may not work as intended.
 
 > [!WARNING] 
@@ -60,6 +62,16 @@ I am planning on adding the following features to the train map editor:
 - [x] Redirect Help (F1) to actual GitHub repo
 
 - [ ] Add light/Dark mode for the app `var.setProprety("class", " ")`
+
+# Contributing
+Contributing to this project is more than welcomed :sparkles:\
+Ideas, help, design, artwork, docs, You name it! everything is a huge help :3
+
+If you are interestred, please make yourself known !
+
+> [!NOTE]
+> I never had the chance to maintain a purposefully open source project before and therefore the contributing guidelines are kind of inexistants... Any advice is also welcomed >:)
+
 
 # Licence
 > For the full version, visit the [LICENCE](LICENSE) file
