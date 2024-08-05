@@ -4,7 +4,7 @@
 
 MIT License
 
-Copyright (c) 2024 Th3_Warior
+Copyright (c) 2024 Th3_Warior & contributors
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software. Please refer to the LICENCE file
