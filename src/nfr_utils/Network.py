@@ -11,26 +11,32 @@ The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software. Please refer to the LICENCE file
 """
 
-## Imports
-from .Node import Node
+## IMPORTS ##
 
-##
+# - NFR-lib - #
+if __name__ == "__main__" : # Debug
+    from Node import Node
+else :
+    from nfr_utils import Node
+
+## IMPORTS ##
 
 class Network:
     """Class that represents a Network (Node Graph)
 
     Methods :\n
-    - add_node()    --> Add a node to the network graph
-    └─ add_nodes()\n
-    - remove_node()   --> Remove a node from the network graph
-    └─ remove_nodes()\n
-    - link_node()     --> Link a tuple of two nodes together
-    └─ link_nodes()\n
+    - add_node()    --> Add a node to the network graph\n
+    └─ add_nodes()
+    - remove_node()   --> Remove a node from the network graph\n
+    └─ remove_nodes()
+    - link_node()     --> Link a tuple of two nodes together\n
+    └─ link_nodes()
     - Get_node_index() --> Returns the index of the node given in parameter in the Get_nodes() list
     - Get_nodes()     --> Returns a list of all the nodes (names -> str) in the graph
     - Get_node_links() --> Return a list of links for the node in the graph
     - remove_link() --> removes a link between two nodes
-    - Get_json_dict() --> returns a dict representing the Network, allowing it tobe parsed to Json
+    - Get_json_dict() --> returns a dict representing the Network, allowing it to be parsed to Json
+    - is_node_in_network() --> boolean indicating whether the node name give in parameter is in the network
 
     """
     def __init__(self, nodeslist: list[str] = None):

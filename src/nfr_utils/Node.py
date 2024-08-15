@@ -22,7 +22,7 @@ class Node:
         """A node is :
         - A name (str)
         - A list of connected nodes* / **
-        - A list of colors (links between nodes) the node has (i.e. green and orange)
+        - A list of colors (links between nodes) the node has (i.e. '#ffffff' and '#000000')
         - An x;y pos tuple on the grid for the node
         - the type of node
 
@@ -39,12 +39,32 @@ class Node:
 
     def __str__(self):
         """Debuging function"""
-        res = f'Node : {self.name} \nConnected Node.s:\n['
+        res = f'NodeName : {self.name} \nConnected Node.s:\n['
         if len(self.connected_nodes) != 0 :
             for p in self.connected_nodes :
                 res += p + ', '
             res = res[:-2] + "]"
         else: res += 'None]'
+        # Pos
+        res += "\nPos X; Y :\n"
+        if self.pos != () :
+            res += f"{self.pos[0]}; {self.pos[1]}"
+        else :
+            res += "None"
+        # TypNode Type
+        res += "\nNodeType :\n"
+        if self.node_type != '' :
+            res += self.node_type
+        else :
+            res += "None"
+        # Colors
+        res += "\nNodeColor.s :\n["
+        if len(self.colors) > 0 :
+            for color in self.colors :
+                res += color
+            res += ']'
+        else :
+            res += "None]"
         return res
 
     ## ===== Methods ===== ##

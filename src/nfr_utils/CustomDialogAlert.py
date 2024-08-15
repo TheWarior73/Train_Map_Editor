@@ -9,11 +9,15 @@ Copyright (c) 2024 Th3_Warior & contributors
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software. Please refer to the LICENCE file
 """
+## IMPORTS ##
+
+# - PYQT6 - #
 from PyQt6.QtWidgets import (
     QDialog, QDialogButtonBox,
     QVBoxLayout, QLabel
 )
 
+## IMPORTS ##
 
 class CustomDialog(QDialog):
     def __init__(self, parent=None, window_title='', message=''):

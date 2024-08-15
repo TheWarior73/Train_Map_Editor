@@ -12,7 +12,9 @@ copies or substantial portions of the Software. Please refer to the LICENCE file
 """
 ## IMPORTS ##
 import sys
-# PYQT6
+import webbrowser
+
+# - PYQT6 - #
 from PyQt6.QtWidgets import (
     QMainWindow, QApplication, QDialog,
     QGridLayout, QHBoxLayout, QVBoxLayout,
@@ -20,7 +22,8 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import QAction, QKeySequence
 from PyQt6.QtCore import Qt
-# Custom imports
+
+# - NFR-Lib - #
 from nfr_utils import *
 
 ## IMPORTS ##
@@ -178,7 +181,7 @@ class MainWindow(QMainWindow):
             save_error = CustomDialog(self, "No Oppened Project", 'Try oppening or creating a project before saving')
             save_error.show()
     def openSettings(self):
-        ## Not yet implemented. #TODO
+        ## Not yet implemented. #TODO (settings)
         print('tring to open settings')
 
 
@@ -191,7 +194,6 @@ class MainWindow(QMainWindow):
             button.setShortcut(QKeySequence(shortcut))
         return button
 
-import webbrowser
 
 def help_redirect():
     webbrowser.open('https://github.com/TheWarior73/Train_Map_Editor')

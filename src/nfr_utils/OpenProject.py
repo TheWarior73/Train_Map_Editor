@@ -10,9 +10,14 @@ The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software. Please refer to the LICENCE file
 """
 
+## IMPORTS ##
+import json
+
+# - PYQT6 - #
 from PyQt6.QtWidgets import (QFileDialog)
 from pathlib import Path
-import json
+
+## IMPORTS ##
 
 class OpenProject(QFileDialog):
     def __init__(self, parent=None):
